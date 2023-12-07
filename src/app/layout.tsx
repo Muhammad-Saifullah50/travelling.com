@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import { SessionProvider } from 'next-auth/react'
+import { getServerSession } from 'next-auth'
+import AuthSessionProvider from '@/providers/AuthSessionProvider'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -10,17 +13,22 @@ export const metadata: Metadata = {
   description: 'Your next ultimate travel guide',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+interface RootLayoutProps {
+  children: React.ReactNode,
+  authmodal: React.ReactNode
+}
+
+export default async function RootLayout({ children, authmodal }: RootLayoutProps) {
+
   return (
     <html lang="en">
-      <body className={nunito.className}>
-        <Navbar />
-        {children}
-      </body>
+      <AuthSessionProvider >
+        <body className={nunito.className}>
+          <Navbar />
+          {children}
+          {authmodal}
+        </body>
+      </AuthSessionProvider>
     </html>
   )
 }
