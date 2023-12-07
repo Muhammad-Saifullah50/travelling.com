@@ -1,10 +1,9 @@
+import AuthModal from '@/components/modals/AuthModal'
 import React from 'react'
 
 const LoginPage = () => {
   return (
-    <div>
-      LoginPage
-    </div>
+    <AuthModal  />
   )
 }
 

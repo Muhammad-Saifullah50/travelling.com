@@ -1,19 +1,29 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
+import clsx from "clsx"
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  register: UseFormRegister<FieldValues>
+  id: string
+  errors: FieldErrors
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ register, id, required, errors, className, disabled, type, ...props }, ref) => {
     return (
       <input
         type={type}
-        className={cn(
-          "flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:ring-offset-slate-950 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300",
-          className
+        {...register(id, { required })}
+        className={clsx(
+          "flex h-10 w-full rounded-sm border  bg-white px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-700 focus-visible:ring-inset disabled:cursor-not-allowed disabled:opacity-50  ",
+          className,
+          errors[id] && 'focus:ring-rose-500',
+          disabled && 'opacity-50, cursor-not-allowed'
         )}
+
         ref={ref}
         {...props}
       />

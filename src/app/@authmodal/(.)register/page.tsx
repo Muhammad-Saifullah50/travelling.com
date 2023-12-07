@@ -1,9 +1,9 @@
 import AuthModal from '@/components/modals/AuthModal'
 
-const RegisterPage = () => {
+const RegisterModal = () => {
   return (
-    <AuthModal variant='register'  /> 
+    <AuthModal  /> 
   )
 }
 
-export default RegisterPage
+export default RegisterModal

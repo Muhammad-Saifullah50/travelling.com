@@ -17,25 +17,12 @@ interface ModalProps {
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryActionLabel?: string;
-    loginIcon?: boolean
 }
 
-const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, disabled, secondaryAction, secondaryActionLabel, loginIcon }: ModalProps) => {
+const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, disabled, secondaryAction, secondaryActionLabel }: ModalProps) => {
     const [showModal, setShowModal] = useState(isOpen);
     const router = useRouter();
 
-    useEffect(() => {
-        setShowModal(isOpen);
-    }, [isOpen]);
-
-    const handleClose = useCallback(() => {
-        if (disabled) return
-
-        setShowModal(false);
-        setTimeout(() => {
-            onClose
-        }, 300)
-    }, [disabled, onClose])
 
     const handleSubmit = useCallback(() => {
         if (disabled) return;
@@ -49,13 +36,21 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
         if (!isOpen) return null
     }, [disabled, secondaryAction]);
 
+    const handleClose = useCallback(() => {
+        if (disabled) return
+
+        setShowModal(false);
+        setTimeout(() => {
+            onClose
+        }, 300)
+    }, [disabled, onClose])
 
     return (
-        <div className='flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70'>
+        <div className='flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 '>
             <div className='relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full md:h-auto'>
                 <div className={clsx("translate duration-300 h-full")
                 }>
-                    <div className='translate h-full md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
+                    <div className='translate h-full md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none mt-2'>
                         {/* Header */}
                         <div className='flex items-center rounded-t p-6 justify-center relative border-b-[1px]'>
 
@@ -88,11 +83,11 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
                                     </Button>
                                 )}
                                 <Button
-                                    className={clsx('w-full', loginIcon && 'flex gap-5')}
+                                    className={clsx('w-full')}
                                     disabled={disabled}
                                     onClick={handleSubmit}
                                 >
-                                    {loginIcon ? <CiLogin size={20} /> : null}  {actionLabel}
+                                    {actionLabel}
                                 </Button>
 
                             </div>

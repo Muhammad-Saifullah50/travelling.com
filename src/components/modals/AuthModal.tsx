@@ -2,22 +2,20 @@
 import { useState } from 'react'
 import Modal from '../Modal'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { FcGoogle } from 'react-icons/fc'
 import { BsGithub } from 'react-icons/bs'
-import { CiLogin } from "react-icons/ci";
 import Link from 'next/link'
 
 
-interface AuthModalProps {
-    variant: 'login' | 'register'
-}
-const AuthModal = ({ variant }: AuthModalProps) => {
+
+const AuthModal = () => {
     const [loading, setLoading] = useState(false);
-    const router = useRouter()
+    const router = useRouter();
+    const pathname = usePathname();
 
     const { handleSubmit, register, formState: { errors } } = useForm({
         defaultValues: {
@@ -34,27 +32,53 @@ const AuthModal = ({ variant }: AuthModalProps) => {
     const bodyContent = (
         <section>
             <div>
-                <h3 className='py-2 text-2xl font-bold'>Welcome to Travelling.com</h3>
-                <p className='text-gray-600'>Register to start travelling!!</p>
+                <h3 className='py-2 text-2xl font-bold'>{pathname === '/register' ? 'Welcome to Travelling.com' : 'Welcome Back'}</h3>
+                <p className='text-gray-600'>{pathname === '/register' ? 'Register to start travelling!!' : 'Login to resume exploring the world!!'}</p>
             </div>
 
             <div className='py-2 flex flex-col gap-3'>
-                <div>
-                    <Label>Name</Label>
-                    <Input
-                        placeholder='Enter your name'
-                    />
-                </div>
+                {pathname === '/register' && (
+                    <div>
+                        <Label>Name</Label>
+                        <Input
+                            name='name'
+                            id='name'
+                            type='text'
+                            //@ts-ignore
+                            register={register}
+                            errors={errors}
+                            placeholder='Enter your name'
+                            required
+                            className='peer'
+                        />
+                    </div>
+                )}
+
                 <div>
                     <Label>Email</Label>
                     <Input
+                        name='email'
+                        id='email'
+                        type='email'
+                        //@ts-ignore
+                        register={register}
+                        errors={errors}
                         placeholder='Enter your email'
+                        required
                     />
+
                 </div>
                 <div>
                     <Label>Password</Label>
                     <Input
+                        name='password'
+                        id='password'
+                        type='password'
+                        //@ts-ignore
+                        register={register}
+                        errors={errors}
                         placeholder='Enter password'
+                        required
                     />
                 </div>
             </div>
@@ -75,8 +99,8 @@ const AuthModal = ({ variant }: AuthModalProps) => {
                 <BsGithub size={20} /> Sign in with Github
             </Button>
 
-            <span className='text-base text-center'>Already have an account? &nbsp;
-                <Link href={'/login'} className='text-sky-700' >Log in</Link>
+            <span className='text-base text-center'>{pathname === '/register' ? 'Already have an account?' : 'New to Travelling.com ?'} &nbsp;
+                <Link href={pathname === '/register' ? '/login' : '/register'} className='text-sky-700' >{pathname === '/register' ? 'Login' : 'Register'}</Link>
             </span>
         </div>
 
@@ -91,7 +115,6 @@ const AuthModal = ({ variant }: AuthModalProps) => {
             title='Register'
             body={bodyContent}
             footer={footerContent}
-            loginIcon
         />
     )
 }
