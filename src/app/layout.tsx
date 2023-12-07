@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 import { SessionProvider } from 'next-auth/react'
 import { getServerSession } from 'next-auth'
 import AuthSessionProvider from '@/providers/AuthSessionProvider'
+import { Toaster } from 'react-hot-toast'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -24,6 +25,7 @@ export default async function RootLayout({ children, authmodal }: RootLayoutProp
     <html lang="en">
       <AuthSessionProvider >
         <body className={nunito.className}>
+          <Toaster/>
           <Navbar />
           {children}
           {authmodal}

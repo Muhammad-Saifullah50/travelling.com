@@ -1,35 +1,32 @@
-import * as React from "react"
+import React from "react";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import clsx from "clsx";
 
-import { cn } from "@/lib/utils"
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
-import clsx from "clsx"
-
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  register: UseFormRegister<FieldValues>
-  id: string
-  errors: FieldErrors
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  register: UseFormRegister<FieldValues>;
+  id: string;
+  errors: FieldErrors;
+  required?: boolean; // Make 'required' prop optional
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ register, id, required, errors, className, disabled, type, ...props }, ref) => {
+  ({ register, id, required, errors, disabled, type, }) => {
     return (
       <input
+        id={id}
         type={type}
+        disabled={disabled}
+        autoComplete={id}
         {...register(id, { required })}
-        className={clsx(
-          "flex h-10 w-full rounded-sm border  bg-white px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-700 focus-visible:ring-inset disabled:cursor-not-allowed disabled:opacity-50  ",
-          className,
-          errors[id] && 'focus:ring-rose-500',
-          disabled && 'opacity-50, cursor-not-allowed'
+        className={clsx("form-input w-full rounded-md block border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400  sm:text-sm sm:leading-6",
+          errors[id] ? "focus-visible:ring-rose-500" : '',
+          disabled && "opacity-50 cursor-default"
         )}
-
-        ref={ref}
-        {...props}
       />
-    )
+    );
   }
-)
-Input.displayName = "Input"
+);
 
-export { Input }
+Input.displayName = "Input";
+
+export { Input };

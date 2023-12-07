@@ -9,6 +9,8 @@ import { Button } from '../ui/button'
 import { FcGoogle } from 'react-icons/fc'
 import { BsGithub } from 'react-icons/bs'
 import Link from 'next/link'
+import toast from 'react-hot-toast'
+import { signIn } from 'next-auth/react'
 
 
 
@@ -17,16 +19,28 @@ const AuthModal = () => {
     const router = useRouter();
     const pathname = usePathname();
 
-    const { handleSubmit, register, formState: { errors } } = useForm({
+    const { handleSubmit, register, formState: { errors } } = useForm<FieldValues>({
         defaultValues: {
             name: '',
-            email: "",
+            email: '',
             password: ''
         }
     })
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        if (pathname === '/register') {
+            await fetch('/api/register', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        };
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log(data)
+        await signIn('credentials', {
+            ...data,
+            redirect: false
+        });
     }
 
     const bodyContent = (
@@ -36,7 +50,7 @@ const AuthModal = () => {
                 <p className='text-gray-600'>{pathname === '/register' ? 'Register to start travelling!!' : 'Login to resume exploring the world!!'}</p>
             </div>
 
-            <div className='py-2 flex flex-col gap-3'>
+            <form className='py-2 flex flex-col gap-3'>
                 {pathname === '/register' && (
                     <div>
                         <Label>Name</Label>
@@ -44,12 +58,10 @@ const AuthModal = () => {
                             name='name'
                             id='name'
                             type='text'
-                            //@ts-ignore
                             register={register}
                             errors={errors}
                             placeholder='Enter your name'
                             required
-                            className='peer'
                         />
                     </div>
                 )}
@@ -60,7 +72,6 @@ const AuthModal = () => {
                         name='email'
                         id='email'
                         type='email'
-                        //@ts-ignore
                         register={register}
                         errors={errors}
                         placeholder='Enter your email'
@@ -74,14 +85,13 @@ const AuthModal = () => {
                         name='password'
                         id='password'
                         type='password'
-                        //@ts-ignore
                         register={register}
                         errors={errors}
                         placeholder='Enter password'
                         required
                     />
                 </div>
-            </div>
+            </form>
         </section>
     )
 
@@ -112,7 +122,7 @@ const AuthModal = () => {
             onSubmit={handleSubmit(onSubmit)}
             actionLabel='Continue with credentials'
             onClose={() => router.back()}
-            title='Register'
+            title={pathname === '/register' ? 'Register' : 'Login'}
             body={bodyContent}
             footer={footerContent}
         />
