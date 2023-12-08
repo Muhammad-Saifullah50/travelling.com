@@ -18,7 +18,6 @@ export const POST = async (request: NextRequest) => {
             name,
             email,
             hashedPassword,
-            emailVerified: false
         }
     });
 
