@@ -29,11 +29,25 @@ const AuthModal = () => {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
         try {
             setLoading(true);
+
             if (pathname === '/register') {
                 try {
                     const validation = RegisterSchema.parse(data);
+
+                    const result = await fetch('/api/register', {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    const response = await result.json();
+                    if (response.status === 200) router.push('/verify-email')
+
                 } catch (error) {
                     if (error instanceof ZodError) {
                         const errmsg = error.flatten().fieldErrors;
@@ -48,16 +62,9 @@ const AuthModal = () => {
                         }
                     }
                 }
+            }
 
-                const result = await fetch('/api/register', {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (result.ok) router.push('/verify-email');
-
+            if (pathname === '/login') {
                 const signInResult = await signIn('credentials', {
                     ...data,
                     redirect: false
@@ -68,10 +75,11 @@ const AuthModal = () => {
                 }
 
                 if (!signInResult?.error && signInResult?.ok) {
+                    router.push('/');
                     toast.success('Logged in successfully');
                 }
-
             }
+
         } catch (error) {
             console.error(error);
         } finally {
