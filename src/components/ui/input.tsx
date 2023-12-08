@@ -6,14 +6,15 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   register: UseFormRegister<FieldValues>;
   id: string;
   errors: FieldErrors;
-  required?: boolean; // Make 'required' prop optional
+  required?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ register, id, required, errors, disabled, type, }) => {
+  ({ register, id, required, placeholder, errors, disabled, type, }) => {
     return (
       <input
         id={id}
+        placeholder={placeholder}
         type={type}
         disabled={disabled}
         autoComplete={id}
