@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
-import { SessionProvider } from 'next-auth/react'
-import { getServerSession } from 'next-auth'
 import AuthSessionProvider from '@/providers/AuthSessionProvider'
 import { Toaster } from 'react-hot-toast'
 
@@ -17,18 +15,20 @@ export const metadata: Metadata = {
 interface RootLayoutProps {
   children: React.ReactNode,
   authmodal: React.ReactNode
+  rentmodal: React.ReactNode
 }
 
-export default async function RootLayout({ children, authmodal }: RootLayoutProps) {
+export default async function RootLayout({ children, authmodal, rentmodal }: RootLayoutProps) {
 
   return (
     <html lang="en">
       <AuthSessionProvider >
         <body className={nunito.className}>
-          <Toaster/>
+          <Toaster />
           <Navbar />
           {children}
           {authmodal}
+          {rentmodal}
         </body>
       </AuthSessionProvider>
     </html>

@@ -5,6 +5,7 @@ import Image from "next/image"
 
 const Avatar = () => {
     const session = useSession();
+    console.log(session)
 
     return (
         <div>

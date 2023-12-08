@@ -46,7 +46,7 @@ const AuthModal = () => {
                     });
 
                     const response = await result.json();
-                    if (response.status === 200) router.push('/verify-email')
+                    if (response.status === 200) router.push('/')
 
                 } catch (error) {
                     if (error instanceof ZodError) {
