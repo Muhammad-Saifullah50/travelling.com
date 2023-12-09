@@ -28,7 +28,7 @@ export default async function RootLayout({ children, authmodal, rentmodal }: Roo
           <Navbar />
           {children}
           {authmodal}
-          {rentmodal}
+          {rentmodal}           
         </body>
       </AuthSessionProvider>
     </html>

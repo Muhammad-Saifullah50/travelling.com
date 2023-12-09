@@ -1,7 +1,9 @@
-const RentModal = () => {
+import RentModal from "@/components/modals/RentModal"
+
+const RentPage = () => {
     return (
         <RentModal />
     )
 }
 
-export default RentModal
+export default RentPage
