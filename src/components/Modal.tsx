@@ -78,7 +78,7 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
                                 {secondaryAction && secondaryActionLabel && (
                                     <Button
                                         onClick={handleSecondaryAction}
-                                        className='w-full'>
+                                        className='w-full bg-white text-black hover:bg-sky-600/10 border-2 border-black'>
                                         {secondaryActionLabel}
                                     </Button>
                                 )}
