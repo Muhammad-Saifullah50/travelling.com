@@ -65,14 +65,19 @@ const RentModal = () => {
         if (step !== STEPS.Price) return onNext();
         try {
             setLoading(true);
-
-            const validation = RentSchema.parse(data);
+            console.log(data.location)
+            const datatoUse = {
+                ...data,
+                location: data.location?.value,
+                price: Number(data.price),
+            }
+            const validation = RentSchema.parse(datatoUse);
 
             const result = await fetch('/api/listings', {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(datatoUse),
             })
 
             const response = await result.json();

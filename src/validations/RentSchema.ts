@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const RentSchema = z.object({
     category: z.string().min(1, 'Category is required'),
-    location: z.object(),
+    location: z.string().min(1, 'Location is required'),
     guestCount: z.number(),
     roomCount: z.number(),
     bathroomCount: z.number(),
