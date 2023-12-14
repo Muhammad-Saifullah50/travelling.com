@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 import Modal from '../Modal'
 import { useMemo, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { categories } from '@/constants/categories';
 import CategoryInput from '../CategoryInput';
 import CountrySelect from '../CountrySelect';
@@ -10,6 +10,11 @@ import dynamic from 'next/dynamic';
 import Heading from '../Heading';
 import Counter from '../Counter';
 import ImageUpload from '../ImageUpload';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import toast from 'react-hot-toast';
+import { RentSchema } from '@/validations/RentSchema';
+import { ZodError } from 'zod';
 
 enum STEPS {
     Category = 0,
@@ -56,6 +61,45 @@ const RentModal = () => {
         setStep((value) => value + 1);
     }, [setStep]);
 
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        if (step !== STEPS.Price) return onNext();
+        try {
+            setLoading(true);
+
+            const validation = RentSchema.parse(data);
+
+            const result = await fetch('/api/listings', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+
+            const response = await result.json();
+            if (response.status === 200) {
+                toast.success('Listing created');
+                router.push('/');
+            }
+        } catch (error: any) {
+            console.error(error)
+
+            if (error instanceof ZodError) {
+                const errmsg = error.flatten().fieldErrors;
+                const firstError = Object.keys(errmsg)[0];
+                const firstErrorValue = errmsg[firstError];
+                //@ts-ignore
+                toast.error(firstErrorValue[0]);
+
+                if (Object.keys(errmsg).length === 0) {
+                    toast.error(error.flatten().formErrors[0]);
+
+                }
+            }
+
+        } finally {
+            setLoading(false);
+        }
+    }
     const actionLabel = () => {
         if (step === STEPS.Price) {
             return 'Create'
@@ -72,11 +116,11 @@ const RentModal = () => {
 
     const category = watch('category');
     const location = watch('location');
-
     const GuestCount = watch('guestCount');
     const RoomCount = watch('roomCount');
     const BathRoomCount = watch('bathroomCount');
-    const imageSrc = watch('imageSrc');
+    const ImageSrc = watch('imageSrc');
+
 
     const Map = useMemo(() => dynamic(() => import('../Map'), {
         ssr: false
@@ -157,7 +201,7 @@ const RentModal = () => {
                 />
 
                 <ImageUpload
-                    value={imageSrc}
+                    value={ImageSrc}
                     onChange={(value) => setCustomValue('imageSrc', value)}
                 />
             </div>
@@ -165,12 +209,60 @@ const RentModal = () => {
     }
     if (step === STEPS.Description) {
         bodyContent = (
-            <div>rrrrr</div>
+            <div className='flex flex-col gap-8'>
+                <Heading
+                    title={'How would you describe your place'}
+                    subtitle='Short and sweet works best!'
+                />
+                <div>
+                    <Label>Title</Label>
+                    <Input
+                        placeholder='Title'
+
+                        register={register}
+                        id='title'
+                        errors={errors}
+                        disabled={loading}
+                        required
+                    />
+                </div>
+                <div>
+                    <Label>Description</Label>
+                    <Input
+                        placeholder='Description'
+
+                        register={register}
+                        id='description'
+                        errors={errors}
+                        disabled={loading}
+                        required
+                    />
+                </div>
+
+
+            </div>
         )
     }
     if (step === STEPS.Price) {
         bodyContent = (
-            <div>rrrrr</div>
+            <div className='flex flex-col gap-8'>
+                <Heading
+                    title='Now, set your price'
+                    subtitle='How much do you charge per night?'
+                />
+                <div>
+                    <Label>Price</Label>
+                    <Input
+                        register={register}
+                        id='price'
+                        type='number'
+                        errors={errors}
+                        disabled={loading}
+                        required
+                    />
+                </div>
+
+            </div>
         )
     }
     return (
@@ -182,7 +274,7 @@ const RentModal = () => {
             disabled={loading}
             secondaryActionLabel={secondaryActionLabel()}
             secondaryAction={step === STEPS.Category ? undefined : onBack}
-            onSubmit={onNext}
+            onSubmit={handleSubmit(onSubmit)}
             body={bodyContent}
 
 
@@ -191,3 +283,4 @@ const RentModal = () => {
 }
 
 export default RentModal
+
