@@ -4,6 +4,7 @@ import MaxWidthWrapper from './MaxWidthWrapper'
 import { categories } from '@/constants/categories'
 import CategoryBox from './CategoryBox'
 import { usePathname, useSearchParams } from 'next/navigation'
+import clsx from 'clsx'
 
 const Categories = () => {
 
@@ -12,7 +13,7 @@ const Categories = () => {
 
     const parameter = params?.get('category')
     return (
-        <div className='flex justify-between items-center py-3 overflow-x-auto '>
+        <div className={clsx('flex justify-between items-center py-3 overflow-x-auto ', pathname !== '/' && 'hidden')}>
             {categories.map((category) => (
                 <CategoryBox
                     key={category.label}

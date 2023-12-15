@@ -1,7 +1,7 @@
 'use client'
 
 interface HeadingProps {
-    title: string
+    title: string | undefined
     subtitle: string
 }
 const Heading = ({ title, subtitle }: HeadingProps) => {

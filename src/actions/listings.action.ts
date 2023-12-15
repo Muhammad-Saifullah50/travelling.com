@@ -18,7 +18,7 @@ export const getListings = async () => {
     }
 }
 
-export const getListingsByCategory = async ({category}: {category: string}) => {
+export const getListingsByCategory = async ({ category }: { category: string }) => {
     try {
         const listings = await prisma.listing.findMany({
             orderBy: {
@@ -36,4 +36,24 @@ export const getListingsByCategory = async ({category}: {category: string}) => {
         console.error(error)
         return []
     }
+}
+
+export const getListingById = async (listingId: string) => {
+
+    try {
+        const listing = await prisma.listing.findUnique({
+            where: {
+                id: listingId
+            },
+            include: {
+                user: true
+            }
+        });
+
+        return listing
+    } catch (error) {
+        console.error(error)
+        return null
+    }
+
 }

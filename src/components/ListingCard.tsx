@@ -53,7 +53,7 @@ const ListingCard = ({ data, currentUser, reservation, onAction, disabled, actio
   return (
     <div
       className="col-span-1 cursor-pointer group "
-      onClick={() => router.push(`/listings/${data.id}`)}>
+     >
       <div className="flex flex-col gap-1 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <Image
@@ -61,6 +61,7 @@ const ListingCard = ({ data, currentUser, reservation, onAction, disabled, actio
             src={data.imageSrc}
             alt={data.title}
             className="object-cover h-full w-full group-hover:scale-110 transition"
+            onClick={() => router.push(`/listings/${data.id}`)}
           />
           <div className="absolute top-3 right-3" >
             <HeartButton

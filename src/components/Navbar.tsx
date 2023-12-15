@@ -15,6 +15,7 @@ import Link from 'next/link'
 import SignOutBtn from './SignOutBtn'
 import { getSession } from '@/actions/getSession'
 import Categories from './Categories'
+import { usePathname } from 'next/navigation'
 
 const Navbar = async () => {
 
@@ -42,7 +43,7 @@ const Navbar = async () => {
           <Search className='bg-sky-600 text-white rounded-full  h-7 w-7 p-1.5 items-center -mr-3' />
         </div>
         <div className='flex gap-4 items-center'>
-        <Link href={'/rent'}>{session && <h2 className='text-sm font-bold'>Register your place</h2>} </Link> 
+          <Link href={'/rent'}>{session && <h2 className='text-sm font-bold'>Register your place</h2>} </Link>
 
           <div className='flex gap-2 items-center'>
             <DropdownMenu>
@@ -88,7 +89,7 @@ const Navbar = async () => {
         </div>
       </div>
 
-      <div>
+      <div >
         <Categories />
       </div>
     </MaxWidthWrapper>
