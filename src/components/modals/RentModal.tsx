@@ -65,7 +65,7 @@ const RentModal = () => {
         if (step !== STEPS.Price) return onNext();
         try {
             setLoading(true);
-            console.log(data.location)
+            
             const datatoUse = {
                 ...data,
                 location: data.location?.value,
@@ -74,6 +74,7 @@ const RentModal = () => {
             const validation = RentSchema.parse(datatoUse);
 
             const result = await fetch('/api/listings', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -256,7 +257,7 @@ const RentModal = () => {
                     subtitle='How much do you charge per night?'
                 />
                 <div>
-                    <Label>Price</Label>
+                    <Label>Price in dollars</Label>
                     <Input
                         register={register}
                         id='price'
