@@ -3,14 +3,13 @@
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 
-const Avatar = () => {
+const Avatar = ({ src }: { src?: string }) => {
     const session = useSession();
-    console.log(session)
 
     return (
         <div>
             <Image
-                src={session?.data?.user?.image || '/placeholder.jpg'}
+                src={src || session?.data?.user?.image || '/placeholder.jpg'}
                 alt='avatar'
                 width={30}
                 height={30}

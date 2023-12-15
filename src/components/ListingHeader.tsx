@@ -1,7 +1,10 @@
 'use client'
 
 import { User } from "@prisma/client"
-
+import Heading from "./Heading"
+import useCountries from "@/hooks/useCountries"
+import Image from "next/image"
+import HeartButton from "./HeartButton"
 
 interface ListingHeaderProps {
     title: string | undefined
@@ -10,11 +13,33 @@ interface ListingHeaderProps {
     id: string | undefined
     currentUser: User | undefined | null
 }
-const ListingHeader = ({ title, imageSrc, locationValue, id, currentUser }: ListingHeaderProps) => {
-    return (
-        <div>
+const ListingHeader = ({ title, imageSrc, locationValue, id, currentUser }:
+    ListingHeaderProps) => {
 
-        </div>
+    const { getByValue } = useCountries();
+    const location = getByValue(locationValue!);
+    return (
+        <section className="flex flex-col gap-4 mt-4">
+            <Heading
+                title={title}
+                subtitle={`${location?.region}, ${location?.label}`}
+            />
+            <div className="w-full h-[60vh] overflow-hidden relative rounded-xl">
+                <Image
+                    src={imageSrc!}
+                    fill
+                    className="object-cover w-full"
+                    alt={title!}
+                />
+                <div className="absolute top-5 right-5">
+                    <HeartButton
+                        listingId={id!}
+                        currentUser={currentUser}
+                    />
+                </div>
+
+            </div>
+        </section>
     )
 }
 
