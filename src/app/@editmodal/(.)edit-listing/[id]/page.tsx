@@ -2,7 +2,7 @@ import { getListingById } from "@/actions/listings.action"
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
 import EditModal from "@/components/modals/EditModal"
 
-const EditListingPage = async ({ params }: { params: { id: string } }) => {
+const EditListingModal = async ({ params }: { params: { id: string } }) => {
 
     const data = await getListingById(params.id)
 
@@ -15,4 +15,4 @@ const EditListingPage = async ({ params }: { params: { id: string } }) => {
     )
 }
 
-export default EditListingPage
+export default EditListingModal

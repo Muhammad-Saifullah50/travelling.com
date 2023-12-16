@@ -18,7 +18,6 @@ interface ListingInfoProps {
     description: string | undefined
     categorylabel: string | undefined
     location: string
-    isEdit?: boolean
 
 }
 
@@ -26,28 +25,10 @@ const Map = (dynamic(() => import('../components/Map'), {
     ssr: false
 }));
 
-const ListingInfo = ({ user, roomCount, guestCount, bathroomCount, description, categorylabel, location, isEdit }: ListingInfoProps) => {
+const ListingInfo = ({ user, roomCount, guestCount, bathroomCount, description, categorylabel, location, }: ListingInfoProps) => {
 
     const { getByValue } = useCountries();
-    const { setValue, watch } = useForm({
-        defaultValues: {
-            guestCount: guestCount,
-            roomCount: roomCount,
-            bathroomCount: bathroomCount,
-            description: description,
-            location: locationValue
-        }
-    });
-
-    var locationValue = getByValue(location)
-
-    const GuestCount = watch('guestCount')
-    const RoomCount = watch('roomCount')
-    const BathroomCount = watch('bathroomCount')
-    const Description = watch('description')
-    const Location = watch('location')
-
-
+   
 
     const selectedCategory = categories.find(category => category.label === categorylabel);
     const Icon = selectedCategory ? selectedCategory.icon : <TbBeach size={40} />;
@@ -57,35 +38,17 @@ const ListingInfo = ({ user, roomCount, guestCount, bathroomCount, description, 
         <section className="flex flex-col gap-4">
             <div className="flex flex-col ">
 
-                {!isEdit && <div className="flex gap-2 items-center ">
+                <div className="flex gap-2 items-center ">
                     <p className="text-lg font-bold">Hosted by {user?.name}</p>
                     <Avatar src={user?.image!} />
-                </div>}
+                </div>
 
-                {!isEdit ? (<div className="flex gap-2 text-gray-500">
+                <div className="flex gap-2 text-gray-500">
                     <p>{guestCount} guests</p>
                     <p>{roomCount} rooms</p>
                     <p>{bathroomCount} bathrooms</p>
                 </div>
-                ) : (
-                    <div>
-                        <Counter
-                            title='No. of Guests'
-                            value={GuestCount}
-                            onChange={(value) => setValue('guestCount', value)}
-                        />
-                        <Counter
-                            title='No. of Rooms'
-                            value={RoomCount}
-                            onChange={(value) => setValue('roomCount', value)}
-                        />
-                        <Counter
-                            title='No. of Bathrooms'
-                            value={BathroomCount}
-                            onChange={(value) => setValue('bathroomCount', value)}
-                        />
-                    </div>
-                )}
+
             </div>
             <hr />
             <div className="flex gap-2">
@@ -99,24 +62,12 @@ const ListingInfo = ({ user, roomCount, guestCount, bathroomCount, description, 
             </div>
             <hr />
             <div className="h-full">
-                {!isEdit ? (<p className="text-neutral-500">{description}</p>) : (
-                    <Textarea 
-                    defaultValue={description} 
-                    cols={10} 
-                    className="h-52 text-base" 
-                    onChange={(e) => setValue('description', e.target.value)}/>
-                )}
+                <p className="text-neutral-500">{description}</p>
             </div>
             <hr />
-           {!isEdit ? ( <div className="my-3 h-72">
+            <div className="my-3 h-72">
                 <Map center={coordinates} />
-            </div>) : (
-                <CountrySelect
-                value={locationValue}
-                //@ts-ignore
-                onChange={(value) => setValue('location', value?.value)}
-                />
-            )}
+            </div>
         </section>
     )
 }
