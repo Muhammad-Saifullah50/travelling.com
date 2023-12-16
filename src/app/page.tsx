@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: HomeProps) {
               <ListingCard
                 key={listing.id}
                 data={listing}
-                currentUser={currentUser}
+                currentUser={currentUser!}
               />
             ))}
           </div>

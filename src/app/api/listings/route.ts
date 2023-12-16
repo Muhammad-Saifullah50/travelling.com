@@ -33,6 +33,27 @@ export const POST = async (request: Request) => {
     } catch (error: any) {
         return NextResponse.json({ error: error.message, status: 500 });
     }
+}
 
+export const DELETE = async (request: Request) => {
+    try {
+        const body = await request.json();
+        
 
+        const currentUser = await getCurrentUser();
+
+        if (!currentUser) {
+            return NextResponse.json({ error: 'Unauthorized', status: 401 });
+        }
+
+        const deletedListing = await prisma.listing.delete({
+            where: {
+                id: body.id
+            }
+        });
+
+        return NextResponse.json({ message: 'Listing deleted successfully', data: deletedListing, status: 200 });
+    } catch (error: any) {
+        return NextResponse.json({ error: error?.message, status: 500 });
+    }
 }

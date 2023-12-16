@@ -7,7 +7,7 @@ import { Button } from "./ui/button"
 interface EmptyStateProps {
     title: string
     subtitle: string
-    showReset: boolean
+    showReset?: boolean
 }
 const EmptyState = ({ title, subtitle, showReset }: EmptyStateProps) => {
 

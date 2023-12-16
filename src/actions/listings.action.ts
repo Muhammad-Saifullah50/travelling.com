@@ -1,6 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
+import getCurrentUser from './getCurrentUser';
 
 export const getListings = async () => {
     try {
@@ -53,7 +54,30 @@ export const getListingById = async (listingId: string) => {
         return listing
     } catch (error) {
         console.error(error)
-        return null
+        return []
+    }
+}
+
+export const getListingByOwnerId = async (ownerId: string) => {
+
+    try {
+        const currentUser = await getCurrentUser();
+
+        if (!currentUser) return
+
+        const properties = await prisma.listing.findMany({
+            where: {
+                userId: ownerId
+            },
+            include: {
+                user: true
+            }
+        });
+
+        return properties
+    } catch (error) {
+        console.error(error)
+        return []
     }
 
 }

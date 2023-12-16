@@ -3,6 +3,27 @@
 import getCurrentUser from "./getCurrentUser";
 import prisma from '@/lib/prisma';
 
+export const getFavourites = async () => {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser) return
+    try {
+        const favourites = await prisma.listing.findMany({
+            where: {
+                id: {
+                    in: currentUser.favouriteIds
+                }
+            }
+        });
+    
+        return favourites 
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+
+   
+}
 export const addFavourite = async (listingId: string) => {
     const currentUser = await getCurrentUser();
 

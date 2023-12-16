@@ -26,6 +26,7 @@ const Navbar = async () => {
     <MaxWidthWrapper className='flex flex-col '>
 
       <div className='flex justify-between items-center py-2 border-b-2 border-gray-100'>
+        <Link href={'/'}>
         <div className='flex gap-2 items-center ' >
           <Image
             src={'/logo.png'}
@@ -35,6 +36,7 @@ const Navbar = async () => {
           />
           <h1 className='text-2xl font-extrabold text-gray-900'>Travelling.com</h1>
         </div>
+        </Link>
 
         <div className='bg-white flex border-2 border-gray-100 py-1 h-10 items-center rounded-full shadow-sm shadow-gray-100 text-sm font-bold px-3'>
           <h3 className='px-4 border-r-2'>Anywhere </h3>
