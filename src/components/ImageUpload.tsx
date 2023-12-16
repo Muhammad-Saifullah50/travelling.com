@@ -7,9 +7,10 @@ import Image from "next/image";
 interface ImageUploadProps {
     onChange: (value: string) => void;
     value: string
+    isEdit?: boolean
 }
 
-const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
+const ImageUpload = ({ onChange, value, isEdit }: ImageUploadProps) => {
 
     const handleUpload = useCallback((result: any) => {
         onChange(result.info.secure_url)
@@ -26,7 +27,7 @@ const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
                 return (
                     <div
                         onClick={() => open?.()}
-                        className="mt-2 relative cursor-pointer hover:opacity-70 transition border-2 border-dashed p-20 border-neutral-300 text-neutral-600 items-center justify-center flex flex-col gap-4"
+                        className="mt-2 relative cursor-pointer hover:opacity-70 transition border-2 border-dashed  border-neutral-300 text-neutral-600 items-center justify-center flex flex-col gap-4 h-full"
                     >
                         <TbPhotoPlus size={50} />
                         <div className="font-semibold text-lg">

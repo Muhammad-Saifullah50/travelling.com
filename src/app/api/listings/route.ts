@@ -54,6 +54,7 @@ export const DELETE = async (request: Request) => {
 
         return NextResponse.json({ message: 'Listing deleted successfully', data: deletedListing, status: 200 });
     } catch (error: any) {
+        console.error(error?.message);
         return NextResponse.json({ error: error?.message, status: 500 });
     }
 }

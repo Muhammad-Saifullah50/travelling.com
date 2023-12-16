@@ -50,27 +50,29 @@ const ListingCard = ({ data, currentUser, reservation, onAction, disabled, actio
         if (response.status !== 200) {
           toast.error(response.error);
         }
-        
+
+      } else {
+        const result = await fetch('/api/reservations', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ reservationId: id })
+        })
+
+        const response = await result.json();
+        if (response.status === 200) {
+          toast.success('Reservation cancelled');
+          router.refresh();
+        }
+        if (response.status !== 200) {
+          toast.error(response.error);
+        }
       }
 
-      const result = await fetch('/api/reservations', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ reservationId: id })
-      })
 
-      const response = await result.json();
-      if (response.status === 200) {
-        toast.success('Reservation cancelled');
-        router.refresh();
-      }
-      if (response.status !== 200) {
-        toast.error(response.error);
-      }
     } catch (error) {
-      console.error(error)
+      console.error(error, 'error')
       toast.error('Something went wrong!')
     } finally {
       setLoading(false)
@@ -78,7 +80,7 @@ const ListingCard = ({ data, currentUser, reservation, onAction, disabled, actio
   }
 
   const secondaryAction = async () => {
-
+    router.push(`/edit-listing/${data.id}`)
   }
 
   const price = useMemo(() => {

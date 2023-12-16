@@ -5,9 +5,9 @@ import { AiOutlineMinusCircle } from 'react-icons/ai'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 interface CounterProps {
     title: string;
-    subtitle: string
+    subtitle?: string
     value: any
-    onChange: (value: string) => void
+    onChange: (value: number) => void
 }
 const Counter = ({ title, subtitle, value, onChange }: CounterProps) => {
 

@@ -54,7 +54,7 @@ export const getListingById = async (listingId: string) => {
         return listing
     } catch (error) {
         console.error(error)
-        return []
+        return 
     }
 }
 
