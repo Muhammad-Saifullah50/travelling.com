@@ -31,15 +31,13 @@ const EditModal = ({ listing }: { listing: Listing | undefined | null }) => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [step, setStep] = useState(STEPS.Category)
-    const {getByValue} = useCountries();
-    const Location = getByValue(listing?.locationValue!)
 
     const { register, handleSubmit, setValue, watch, formState: { errors }, reset
     } = useForm<FieldValues>({
         defaultValues: {
             id: listing?.id || '',
             category: listing?.category || '',
-            location: Location || null,
+            location: listing?.locationValue || null,
             guestCount: listing?.guestCount || 1,
             roomCount: listing?.roomCount || 1,
             bathroomCount: listing?.bathroomCount || 1,
