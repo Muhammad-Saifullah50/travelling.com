@@ -16,7 +16,6 @@ import toast from 'react-hot-toast';
 import { RentSchema } from '@/validations/RentSchema';
 import { ZodError } from 'zod';
 import { Listing } from '@prisma/client';
-import useCountries from '@/hooks/useCountries';
 
 enum STEPS {
     Category = 0,
