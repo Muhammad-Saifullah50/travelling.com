@@ -85,6 +85,7 @@ const RentModal = () => {
             if (response.status === 200) {
                 toast.success('Listing created');
                 router.push('/');
+                router.refresh();
             }
         } catch (error: any) {
             console.error(error)

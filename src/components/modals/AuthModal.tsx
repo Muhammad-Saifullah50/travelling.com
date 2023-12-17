@@ -46,7 +46,10 @@ const AuthModal = () => {
                     });
 
                     const response = await result.json();
-                    if (response.status === 200) router.push('/')
+                    if (response.status === 200) {
+                        router.push('/')
+                        router.refresh();
+                    }
 
                 } catch (error) {
                     if (error instanceof ZodError) {
@@ -77,6 +80,7 @@ const AuthModal = () => {
                 if (!signInResult?.error && signInResult?.ok) {
                     router.push('/');
                     toast.success('Logged in successfully');
+                    router.refresh();
                 }
             }
 
