@@ -47,8 +47,7 @@ const AuthModal = () => {
 
                     const response = await result.json();
                     if (response.status === 200) {
-                        router.push('/')
-                        router.refresh();
+                        router.back()
                     }
 
                 } catch (error) {
@@ -79,8 +78,7 @@ const AuthModal = () => {
 
                 if (!signInResult?.error && signInResult?.ok) {
                     toast.success('Logged in successfully');
-                    router.push('/');
-                    router.refresh();
+                    router.back();
                 }
             }
 

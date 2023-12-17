@@ -5,6 +5,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import GithubProvider from 'next-auth/providers/github'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '@/lib/prisma'
+import toast from 'react-hot-toast'
 
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -37,13 +38,14 @@ export const authOptions: AuthOptions = {
                 });
 
                 if (!user || !user?.hashedPassword) {
+                    toast.error('Invalid credentials')
                     throw new Error('Invalid credentials')
                 };
 
                 const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
 
                 if (!isCorrectPassword) {
-                    throw new Error('Invalid credentials')
+                    toast.error('Invalid credentials')
                 }
 
                 return user
