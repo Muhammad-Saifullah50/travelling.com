@@ -46,7 +46,7 @@ export const PATCH = async (request: Request) => {
         }
 
         const updatedListing = await prisma.listing.update({
-            where:{
+            where: {
                 id: body.id
             },
             data: {
@@ -63,7 +63,7 @@ export const PATCH = async (request: Request) => {
             },
 
         });
-
+        console.log(updatedListing, 'updatedListing')
         return NextResponse.json({ message: 'Listing updated successfully', data: updatedListing, status: 200 });
     } catch (error: any) {
         return NextResponse.json({ error: error.message, status: 500 });
@@ -73,7 +73,7 @@ export const PATCH = async (request: Request) => {
 export const DELETE = async (request: Request) => {
     try {
         const body = await request.json();
-        
+
 
         const currentUser = await getCurrentUser();
 

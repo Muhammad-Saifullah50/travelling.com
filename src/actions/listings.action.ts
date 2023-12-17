@@ -50,7 +50,7 @@ export const getListingById = async (listingId: string) => {
                 user: true
             }
         });
-
+console.log(listing, 'listing')
         return listing
     } catch (error) {
         console.error(error)
