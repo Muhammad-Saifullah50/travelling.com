@@ -34,7 +34,7 @@ const Navbar = async () => {
             width={50}
             height={50}
           />
-          <h1 className='text-2xl font-extrabold text-gray-900'>Travelling.com</h1>
+          <h1 className='max-md:hidden text-2xl font-extrabold text-gray-900'>Travelling.com</h1>
         </div>
         </Link>
 
@@ -45,7 +45,7 @@ const Navbar = async () => {
           <Search className='bg-sky-600 text-white rounded-full  h-7 w-7 p-1.5 items-center -mr-3' />
         </div>
         <div className='flex gap-4 items-center'>
-          <Link href={'/rent'}>{session && <h2 className='text-sm font-bold'>Register your place</h2>} </Link>
+          <Link href={'/rent'}>{session && <h2 className='max-md:hidden text-sm font-bold'>Register your place</h2>} </Link>
 
           <div className='flex gap-2 items-center'>
             <DropdownMenu>
