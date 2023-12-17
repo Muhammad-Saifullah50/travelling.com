@@ -31,8 +31,8 @@ const ListingPage = async ({ params }: { params: { listingId: string } }) => {
         <ListingInfo
           user={listing?.user}
           roomCount={listing?.roomCount}
-          guestCount={listing?.roomCount}
-          bathroomCount={listing?.roomCount}
+          guestCount={listing?.guestCount}
+          bathroomCount={listing?.bathroomCount}
           description={listing?.description}
           categorylabel={listing?.category}
           location={listing?.locationValue!}
