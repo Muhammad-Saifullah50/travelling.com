@@ -1,12 +1,14 @@
 'use client'
 import Image from 'next/image'
 import { Oval } from 'react-loader-spinner'
+import { usePathname } from 'next/navigation'
 const Loading = () => {
+    const pathname = usePathname();
     return (
-        <div className='flex flex-col items-center justify-center min-h-[70vh]'>
+        <div className={`flex flex-col items-center justify-center ${pathname === '/' ? 'min-h-[70vh]' : 'min-h-[75vh]'}`}>
             <Oval
-                height={80}
-                width={80}
+                height={70}
+                width={70}
                 color="#0369a1"
                 wrapperStyle={{}}
                 wrapperClass=""
