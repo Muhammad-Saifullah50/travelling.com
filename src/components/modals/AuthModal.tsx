@@ -78,8 +78,8 @@ const AuthModal = () => {
                 }
 
                 if (!signInResult?.error && signInResult?.ok) {
-                    router.push('/');
                     toast.success('Logged in successfully');
+                    router.push('/');
                     router.refresh();
                 }
             }

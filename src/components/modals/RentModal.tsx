@@ -87,6 +87,9 @@ const RentModal = () => {
                 router.push('/');
                 router.refresh();
             }
+            if (response.status !== 200) {
+                toast.error(response.error);
+            }
         } catch (error: any) {
             console.error(error)
 
