@@ -10,7 +10,8 @@ const Loading = () => {
         ${pathname === '/rent' ||
                 pathname === '/edit-listing' ||
                 pathname === '/login' ||
-                pathname === '/register' ? 'hidden' : ''}`}>
+                pathname === '/register' ||
+                pathname === '/search' ? 'hidden' : ''}`}>
             <Oval
                 height={70}
                 width={70}

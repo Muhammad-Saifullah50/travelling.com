@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from "clsx"
-import { useRouter, useSearchParams } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 interface CategoryBoxProps {
     label: string
@@ -14,6 +14,7 @@ const CategoryBox = ({ label, icon: Icon, description, selected }: CategoryBoxPr
     const params = useSearchParams();
 
     const handleClick = () => {
+       
         router.push(`?category=${label}`)
 
         const existingparameter = params.get('category');
