@@ -5,7 +5,12 @@ import { usePathname } from 'next/navigation'
 const Loading = () => {
     const pathname = usePathname();
     return (
-        <div className={`flex flex-col items-center justify-center ${pathname === '/' ? 'min-h-[70vh]' : 'min-h-[75vh]'}`}>
+        <div className={`flex flex-col items-center justify-center 
+        ${pathname === '/' ? 'min-h-[70vh]' : 'min-h-[75vh]'} 
+        ${pathname === '/rent' ||
+                pathname === '/edit-listing' ||
+                pathname === '/login' ||
+                pathname === '/register' ? 'hidden' : ''}`}>
             <Oval
                 height={70}
                 width={70}

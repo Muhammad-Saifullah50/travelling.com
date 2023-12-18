@@ -1,6 +1,8 @@
 "use client"
 
 import { addFavourite, deleteFavourite } from "@/actions/favourite.action";
+import getCurrentUser from "@/actions/getCurrentUser";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
@@ -13,6 +15,10 @@ interface HeartButtonProps {
 const HeartButton = ({ listingId, currentUser }: HeartButtonProps) => {
 
     const router = useRouter();
+
+    if (!currentUser) {
+        return null
+    }
 
     let isFavourite = useMemo(() => {
         const list = currentUser?.favouriteIds || []

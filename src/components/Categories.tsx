@@ -13,7 +13,13 @@ const Categories = () => {
 
     const parameter = params?.get('category')
     return (
-        <div className={clsx('flex justify-between items-center py-3 overflow-x-auto ', pathname !== '/' && 'hidden')}>
+        <div className={clsx('flex justify-between items-center py-3 overflow-x-auto ', (pathname.includes('/edit-listing') ||
+            pathname.includes('/listings') ||
+            pathname === '/trips' ||
+            pathname === '/reservations' ||
+            pathname === '/properties' ||
+            pathname === '/favourites')
+            && 'hidden')}>
             {categories.map((category) => (
                 <CategoryBox
                     key={category.label}

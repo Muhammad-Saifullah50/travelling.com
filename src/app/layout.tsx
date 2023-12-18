@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import AuthSessionProvider from '@/providers/AuthSessionProvider'
 import { Toaster } from 'react-hot-toast'
+import Footer from '@/components/Footer'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -31,6 +32,7 @@ export default async function RootLayout({ children, authmodal, rentmodal, editm
           {authmodal}
           {rentmodal}
           {editmodal}
+          <Footer/>
         </body>
       </AuthSessionProvider>
     </html>
