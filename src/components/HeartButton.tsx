@@ -16,10 +16,6 @@ const HeartButton = ({ listingId, currentUser }: HeartButtonProps) => {
 
     const router = useRouter();
 
-    if (!currentUser) {
-        return null
-    }
-
     let isFavourite = useMemo(() => {
         const list = currentUser?.favouriteIds || []
         return list.includes(listingId)
@@ -40,7 +36,7 @@ const HeartButton = ({ listingId, currentUser }: HeartButtonProps) => {
     }
 
     return (
-        <div onClick={handleClick} className="relative hover:opacity-80 trasition cursor-pointer">
+        <div onClick={handleClick} className={`${!currentUser && 'hidden'} relative hover:opacity-80 trasition cursor-pointer`}>
             <AiOutlineHeart size={28} className='fill-white absolute -top-[2px] -right-[2px]' />
             <AiFillHeart size={24} className={isFavourite ? 'fill-rose-500' : 'fill-neutral-500/70'} />
         </div>

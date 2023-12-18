@@ -27,23 +27,29 @@ const Navbar = async () => {
 
       <div className='flex justify-between items-center py-2 border-b-2 border-gray-100'>
         <Link href={'/'}>
-        <div className='flex gap-2 items-center ' >
-          <Image
-            src={'/logo.png'}
-            alt='logo'
-            width={50}
-            height={50}
-          />
-          <h1 className='max-md:hidden text-2xl font-extrabold text-gray-900'>Travelling.com</h1>
-        </div>
+          <div className='flex gap-2 items-center ' >
+            <Image
+              src={'/logo.png'}
+              alt='logo'
+              width={50}
+              height={50}
+            />
+            <h1 className='max-md:hidden text-2xl font-extrabold text-gray-900'>Travelling.com</h1>
+          </div>
         </Link>
 
-        <div className='bg-white flex border-2 border-gray-100 py-1 h-10 items-center rounded-full shadow-sm shadow-gray-100 text-sm font-bold px-3'>
-          <h3 className='px-4 border-r-2'>Anywhere </h3>
-          <h3 className='px-4 border-r-2'>Any Week </h3>
-          <h3 className='px-4 font-normal flex gap-2'>Add Guests </h3>
-          <Search className='bg-sky-600 text-white rounded-full  h-7 w-7 p-1.5 items-center -mr-3' />
-        </div>
+        <Link href={'/search'}>
+          <div className='max-md:hidden bg-white flex border-2 border-gray-100 py-1 h-10 items-center rounded-full shadow-sm shadow-gray-100 text-sm font-bold px-3'>
+            <h3 className='px-4 border-r-2'>Anywhere </h3>
+            <h3 className='px-4 border-r-2'>Any Week </h3>
+            <h3 className='px-4 font-normal flex gap-2'>Add Guests </h3>
+            <Search className='bg-sky-600 text-white rounded-full  h-7 w-7 p-1.5 items-center -mr-3' />
+          </div>
+        </Link>
+
+        <Link href={'/search'}>
+          <Search className='md:hidden bg-sky-600 text-white rounded-full  h-7 w-7 p-1.5 items-center -mr-3' />
+        </Link>
         <div className='flex gap-4 items-center'>
           <Link href={'/rent'}>{session && <h2 className='max-md:hidden text-sm font-bold'>Register your place</h2>} </Link>
 
