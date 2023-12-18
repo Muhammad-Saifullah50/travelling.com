@@ -3,6 +3,15 @@
 import prisma from '@/lib/prisma'
 import getCurrentUser from './getCurrentUser';
 
+interface FilterParams {
+    category?: string
+    startDate?: string
+    endDate?: string
+    roomCount?: number
+    guestCount?: number
+    bathroomCount?: number
+    locationValue?: string
+}
 export const getListings = async () => {
     try {
         let allListings = await prisma.listing.findMany({
@@ -50,11 +59,11 @@ export const getListingById = async (listingId: string) => {
                 user: true
             }
         });
-console.log(listing, 'listing')
+        console.log(listing, 'listing')
         return listing
     } catch (error) {
         console.error(error)
-        return 
+        return
     }
 }
 
@@ -80,4 +89,65 @@ export const getListingByOwnerId = async (ownerId: string) => {
         return []
     }
 
+}
+
+export const getListingsByFilters = async ({ category, startDate, endDate, roomCount, guestCount, bathroomCount, locationValue }: FilterParams) => {
+
+    try {
+
+        const query: any = {}
+
+        if (category) query.category = category
+
+        if (roomCount) {
+            query.roomCount = {
+                gte: +roomCount
+            }
+        }
+
+        if (bathroomCount) {
+            query.roomCount = {
+                gte: +bathroomCount
+            }
+        }
+
+        if (guestCount) {
+            query.roomCount = {
+                gte: +guestCount
+            }
+        }
+
+        if (locationValue) query.locationValue = locationValue
+
+        if (startDate && endDate) {
+            query.NOT = {
+                reservations: {
+                    some: {
+                        OR: [
+                            {
+                                endDate: { gte: startDate },
+                                startDate: { lte: startDate }
+                            },
+                            {
+                                startDate: { lte: endDate },
+                                endDate: { gte: endDate }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+
+        const listings = await prisma.listing.findMany({
+            where: query,
+            orderBy: {
+                createdAt: 'desc'
+            }
+        })
+
+        return listings
+    } catch (error: any) {
+        console.error(error)
+        return []
+    }
 }

@@ -1,18 +1,31 @@
 import getCurrentUser from '@/actions/getCurrentUser';
-import { getListings, getListingsByCategory } from '@/actions/listings.action'
+import { getListings, getListingsByCategory, getListingsByFilters } from '@/actions/listings.action'
 import EmptyState from '@/components/EmptyState';
 import ListingCard from '@/components/ListingCard';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 
 interface HomeProps {
-  searchParams: { category: string; };
+  searchParams: {
+    category?: string;
+    startDate?: string;
+    endDate?: string;
+    guestCount?: number;
+    locationValue?: string;
+    roomCount?: number;
+    bathroomCount?: number;
+  } ;
 }
 export default async function Home({ searchParams }: HomeProps) {
 
   let listings = await getListings();
 
   if (searchParams.category) {
+    //@ts-ignore
     listings = await getListingsByCategory(searchParams);
+  }
+
+  if (searchParams.startDate) {
+    listings = await getListingsByFilters(searchParams);
   }
 
   const currentUser = await getCurrentUser();
