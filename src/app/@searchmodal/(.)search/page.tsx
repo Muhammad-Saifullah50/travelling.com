@@ -1,7 +1,9 @@
-const SearchModal = () => {
+import SearchModal from "@/components/modals/SearchModal"
+
+const SearchModalSlot = () => {
   return (
     <SearchModal />
   )
 }
 
-export default SearchModal
+export default SearchModalSlot
