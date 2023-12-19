@@ -1,8 +1,9 @@
+import RentModal from "@/components/modals/RentModal"
 import SearchModal from "@/components/modals/SearchModal"
 
 const SearchPage = () => {
   return (
-    <SearchModal />
+    <RentModal />
   )
 }
 

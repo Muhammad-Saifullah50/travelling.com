@@ -6,6 +6,7 @@ import AuthSessionProvider from '@/providers/AuthSessionProvider'
 import { Toaster } from 'react-hot-toast'
 import Footer from '@/components/Footer'
 
+
 const nunito = Nunito({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -18,10 +19,10 @@ interface RootLayoutProps {
   authmodal: React.ReactNode
   rentmodal: React.ReactNode
   editmodal: React.ReactNode
-  searchingmodal: React.ReactNode
+  searchmodal: React.ReactNode
 }
 
-export default async function RootLayout({ children, authmodal, rentmodal, editmodal, searchingmodal }: RootLayoutProps) {
+export default async function RootLayout({ children, authmodal, rentmodal, editmodal, searchmodal }: RootLayoutProps) {
 
   return (
     <html lang="en">
@@ -33,7 +34,7 @@ export default async function RootLayout({ children, authmodal, rentmodal, editm
           {authmodal}
           {rentmodal}
           {editmodal}
-          {searchingmodal}
+          {searchmodal}
           <Footer/>
         </body>
       </AuthSessionProvider>
