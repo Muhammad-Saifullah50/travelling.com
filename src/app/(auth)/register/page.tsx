@@ -1,4 +1,3 @@
-'use client'
 import AuthModal from "@/components/modals/AuthModal"
 import { Metadata } from "next"
 
