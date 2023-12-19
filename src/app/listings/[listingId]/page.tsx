@@ -5,6 +5,17 @@ import ListingHeader from "@/components/ListingHeader"
 import ListingInfo from "@/components/ListingInfo"
 import ListingReservation from "@/components/ListingReservation"
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
+import { Metadata } from "next"
+
+export async function generateMetadata({ params }: { params: { listingId: string } }) {
+  const { listingId } = params
+  const listing = await getListingById(listingId)
+
+  return {
+    title: listing?.title,
+    description: listing?.description,
+  };
+}
 
 const ListingPage = async ({ params }: { params: { listingId: string } }) => {
   const { listingId } = params
@@ -13,11 +24,13 @@ const ListingPage = async ({ params }: { params: { listingId: string } }) => {
   const reservations = await getReservations(params)
   const currentUser = await getCurrentUser();
 
+
+
   const initialDateRange = {
     startDate: new Date(),
     endDate: new Date(),
     key: 'selection'
-};
+  };
   return (
     <MaxWidthWrapper>
       <ListingHeader
@@ -38,12 +51,12 @@ const ListingPage = async ({ params }: { params: { listingId: string } }) => {
           location={listing?.locationValue!}
         />
 
-          <ListingReservation
+        <ListingReservation
           reservations={reservations!}
           currentUser={currentUser!}
           listing={listing!}
           initialDateRange={initialDateRange}
-          />
+        />
       </div>
 
     </MaxWidthWrapper>

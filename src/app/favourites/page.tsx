@@ -5,6 +5,11 @@ import EmptyState from "@/components/EmptyState";
 import Heading from "@/components/Heading"
 import ListingCard from "@/components/ListingCard";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
+import { Metadata } from "next";
+
+export const metadata:Metadata = {
+    title: "My Favourites",
+}
 
 const FavouritesPage = async () => {
 

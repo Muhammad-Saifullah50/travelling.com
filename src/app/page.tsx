@@ -3,6 +3,7 @@ import { getListings, getListingsByCategory, getListingsByFilters } from '@/acti
 import EmptyState from '@/components/EmptyState';
 import ListingCard from '@/components/ListingCard';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
+import { Metadata } from 'next';
 
 interface HomeProps {
   searchParams: {
@@ -14,6 +15,10 @@ interface HomeProps {
     roomCount?: number;
     bathroomCount?: number;
   } ;
+}
+
+export const metadata:Metadata = {
+  title: "Home | Travelling.com",
 }
 export default async function Home({ searchParams }: HomeProps) {
 

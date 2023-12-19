@@ -4,8 +4,13 @@ import EmptyState from "@/components/EmptyState";
 import Heading from "@/components/Heading";
 import ListingCard from "@/components/ListingCard";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { Metadata } from "next";
 
 // this page is to showcase the properties which people have reserved
+
+export const metadata:Metadata = {
+    title: "My Reservations",
+}
 const ReservationsPage = async () => {
     const currentUser = await getCurrentUser();
 
