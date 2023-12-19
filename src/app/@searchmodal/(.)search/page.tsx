@@ -1,9 +1,9 @@
 import SearchModal from "@/components/modals/SearchModal"
 
-const SearchPage = () => {
+const SearchPageModal = () => {
   return (
     <SearchModal />
   )
 }
 
-export default SearchPage
+export default SearchPageModal
