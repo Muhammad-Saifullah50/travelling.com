@@ -18,10 +18,10 @@ interface RootLayoutProps {
   authmodal: React.ReactNode
   rentmodal: React.ReactNode
   editmodal: React.ReactNode
-  searchmodal: React.ReactNode
+  searchingmodal: React.ReactNode
 }
 
-export default async function RootLayout({ children, authmodal, rentmodal, editmodal, searchmodal }: RootLayoutProps) {
+export default async function RootLayout({ children, authmodal, rentmodal, editmodal, searchingmodal }: RootLayoutProps) {
 
   return (
     <html lang="en">
@@ -33,7 +33,7 @@ export default async function RootLayout({ children, authmodal, rentmodal, editm
           {authmodal}
           {rentmodal}
           {editmodal}
-          {searchmodal}
+          {searchingmodal}
           <Footer/>
         </body>
       </AuthSessionProvider>
