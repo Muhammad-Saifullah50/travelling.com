@@ -27,7 +27,7 @@ export default async function RootLayout({ children, authmodal, rentmodal, editm
   return (
     <html lang="en">
       <AuthSessionProvider >
-        <body className={`${nunito.className} overflow-x-hidden min-h-[70vh]`}>
+        <body className={`${nunito.className} overflow-x-hidden min-h-[75vh]`}>
           <Toaster />
           <Navbar />
           {children}

@@ -7,7 +7,7 @@ const Footer = () => {
     return (
 
         <MaxWidthWrapper>
-            <footer className='flex justify-between items-center w-full py-2 border-t-2 border-gray-100'>
+            <footer className='flex justify-between items-center w-full mt-4 py-2 border-t-2 border-gray-100'>
                 <div className='flex items-center gap-3'>
                     <Image
                         src={'/logo.png'}

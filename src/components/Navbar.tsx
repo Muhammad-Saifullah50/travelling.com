@@ -1,4 +1,3 @@
-import React from 'react'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import Image from 'next/image'
 import { Menu, Search } from 'lucide-react'
@@ -15,12 +14,11 @@ import Link from 'next/link'
 import SignOutBtn from './SignOutBtn'
 import { getSession } from '@/actions/getSession'
 import Categories from './Categories'
-import { usePathname } from 'next/navigation'
+import SearchCard from './SearchCard'
 
 const Navbar = async () => {
 
   const session = await getSession();
-
   return (<>
 
     <MaxWidthWrapper className='flex flex-col '>
@@ -38,18 +36,9 @@ const Navbar = async () => {
           </div>
         </Link>
 
-        <Link href={'/search'}>
-          <div className='max-md:hidden bg-white flex border-2 border-gray-100 py-1 h-10 items-center rounded-full shadow-sm shadow-gray-100 text-sm font-bold px-3'>
-            <h3 className='px-4 border-r-2'>Anywhere </h3>
-            <h3 className='px-4 border-r-2'>Any Week </h3>
-            <h3 className='px-4 font-normal flex gap-2'>Add Guests </h3>
-            <Search className='bg-sky-600 text-white rounded-full  h-7 w-7 p-1.5 items-center -mr-3' />
-          </div>
-        </Link>
+        <SearchCard/>
 
-        <Link href={'/search'}>
-          <Search className='md:hidden bg-sky-600 text-white rounded-full  h-7 w-7 p-1.5 items-center -mr-3' />
-        </Link>
+        
         <div className='flex gap-4 items-center'>
           <Link href={'/rent'}>{session && <h2 className='max-md:hidden text-sm font-bold'>Register your place</h2>} </Link>
 

@@ -34,8 +34,8 @@ const SearchModal = () => {
         key: 'selection'
     });
 
-    const formattedStartDate = formatISO(Number(dateRange.startDate));
-    const formattedEndDate = formatISO(Number(dateRange.endDate));
+    const formattedStartDate = new Date(dateRange.startDate!).toISOString();
+    const formattedEndDate = new Date(dateRange.endDate!).toISOString();
 
     const onBack = useCallback(() => {
         setStep((value) => value - 1);

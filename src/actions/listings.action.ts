@@ -94,57 +94,59 @@ export const getListingByOwnerId = async (ownerId: string) => {
 export const getListingsByFilters = async ({ category, startDate, endDate, roomCount, guestCount, bathroomCount, locationValue }: FilterParams) => {
 
     try {
-
-        const query: any = {}
-
-        if (category) query.category = category
-
+        let query: any = {};
+        
+        if (category) {
+          query.category = category;
+        }
+        
         if (roomCount) {
-            query.roomCount = {
-                gte: +roomCount
-            }
+          query.roomCount = {
+            gte: +roomCount
+          }
         }
-
-        if (bathroomCount) {
-            query.roomCount = {
-                gte: +bathroomCount
-            }
-        }
-
+        
         if (guestCount) {
-            query.roomCount = {
-                gte: +guestCount
-            }
+          query.guestCount = {
+            gte: +guestCount
+          }
         }
-
-        if (locationValue) query.locationValue = locationValue
-
+        
+        if (bathroomCount) {
+          query.bathroomCount = {
+            gte: +bathroomCount
+          }
+        }
+        
+        if (locationValue) {
+          query.locationValue = locationValue;
+        }
+        
         if (startDate && endDate) {
-            query.NOT = {
-                reservations: {
-                    some: {
-                        OR: [
-                            {
-                                endDate: { gte: startDate },
-                                startDate: { lte: startDate }
-                            },
-                            {
-                                startDate: { lte: endDate },
-                                endDate: { gte: endDate }
-                            }
-                        ]
-                    }
-                }
+          query.NOT = {
+            reservations: {
+              some: {
+                OR: [
+                  {
+                    endDate: { gte: startDate },
+                    startDate: { lte: startDate }
+                  },
+                  {
+                    startDate: { lte: endDate },
+                    endDate: { gte: endDate }
+                  }
+                ]
+              }
             }
+          }
         }
-
+        
         const listings = await prisma.listing.findMany({
             where: query,
             orderBy: {
                 createdAt: 'desc'
             }
         })
-
         return listings
     } catch (error: any) {
         console.error(error)
