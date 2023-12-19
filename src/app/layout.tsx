@@ -10,7 +10,10 @@ import Footer from '@/components/Footer'
 const nunito = Nunito({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Travelling.com',
+  title: {
+    template: '%s | Travelling.com',
+    default: 'Travelling.com',
+  },
   description: 'Your next ultimate travel guide',
 }
 

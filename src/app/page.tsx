@@ -18,7 +18,7 @@ interface HomeProps {
 }
 
 export const metadata:Metadata = {
-  title: "Home | Travelling.com",
+  title: "Home",
 }
 export default async function Home({ searchParams }: HomeProps) {
 

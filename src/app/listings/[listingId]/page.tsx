@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: { listingId: string
   const listing = await getListingById(listingId)
 
   return {
-    title: listing?.title,
+    title: `${listing?.title} | Travelling.com` ,
     description: listing?.description,
   };
 }
