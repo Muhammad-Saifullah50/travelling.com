@@ -33,7 +33,7 @@ export default async function RootLayout({ children, authmodal, rentmodal, editm
           {authmodal}
           {rentmodal}
           {editmodal}
-          {searchmodal}
+          {/* {searchmodal} */}
           <Footer/>
         </body>
       </AuthSessionProvider>
