@@ -67,9 +67,9 @@ const SearchModal = () => {
     }
 
 
-    const Map = useMemo(() => dynamic(() => import('../Map'), {
+    const Map = dynamic(() => import('../Map'), {
         ssr: false
-    }), [location]);
+    });
 
     let bodyContent = (
         <>
@@ -107,51 +107,51 @@ const SearchModal = () => {
             </div>
         </>)
     }
-    if (step === STEPS.Date) {
-        bodyContent = (
-            <div className='flex flex-col'>
-                <Heading
-                    title='When do you plan to go?'
-                    subtitle='Make sure everyone is free!'
-                />
-                <Calendar
-                    value={dateRange}
-                    //@ts-ignore
-                    onChange={(value) => setDateRange(value.selection)}
-                />
-            </div>
-        )
-    }
+    // if (step === STEPS.Date) {
+    //     bodyContent = (
+    //         <div className='flex flex-col'>
+    //             <Heading
+    //                 title='When do you plan to go?'
+    //                 subtitle='Make sure everyone is free!'
+    //             />
+    //             <Calendar
+    //                 value={dateRange}
+    //                 //@ts-ignore
+    //                 onChange={(value) => setDateRange(value.selection)}
+    //             />
+    //         </div>
+    //     )
+    // }
 
-    if (step === STEPS.Info) {
-        bodyContent = (
-            <div className='flex flex-col'>
-                <Heading
-                    title='Share some basics about your destination'
-                    subtitle='What amenities do you need?'
-                />
+    // if (step === STEPS.Info) {
+    //     bodyContent = (
+    //         <div className='flex flex-col'>
+    //             <Heading
+    //                 title='Share some basics about your destination'
+    //                 subtitle='What amenities do you need?'
+    //             />
 
-                <Counter
-                    title='Guests'
-                    subtitle='How many guests are coming?'
-                    value={guestCount}
-                    onChange={(value) => setGuestCount(value)}
-                />
-                <Counter
-                    title='Rooms'
-                    subtitle='How many rooms will you need?'
-                    value={roomCount}
-                    onChange={(value) => setRoomCount(value)}
-                />
-                <Counter
-                    title='Bathrooms'
-                    subtitle='How many bathrooms do you need?'
-                    value={bathroomCount}
-                    onChange={(value) => setBathroomCount(value)}
-                />
-            </div>
-        )
-    }
+    //             <Counter
+    //                 title='Guests'
+    //                 subtitle='How many guests are coming?'
+    //                 value={guestCount}
+    //                 onChange={(value) => setGuestCount(value)}
+    //             />
+    //             <Counter
+    //                 title='Rooms'
+    //                 subtitle='How many rooms will you need?'
+    //                 value={roomCount}
+    //                 onChange={(value) => setRoomCount(value)}
+    //             />
+    //             <Counter
+    //                 title='Bathrooms'
+    //                 subtitle='How many bathrooms do you need?'
+    //                 value={bathroomCount}
+    //                 onChange={(value) => setBathroomCount(value)}
+    //             />
+    //         </div>
+    //     )
+    // }
 
 
     return (
