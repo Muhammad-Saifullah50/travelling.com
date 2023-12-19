@@ -86,27 +86,27 @@ const SearchModal = () => {
         </>
     )
 
-    if (step === STEPS.Category) {
-        bodyContent = (<>
+    // if (step === STEPS.Category) {
+    //     bodyContent = (<>
 
-            <Heading
-                title='What sort of place would you like to visit?'
-                subtitle='Get recommendations near your chosen category'
-            />
+    //         <Heading
+    //             title='What sort of place would you like to visit?'
+    //             subtitle='Get recommendations near your chosen category'
+    //         />
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto'>
-                {categories.map((item) => (
-                    <CategoryInput
-                        key={item.label}
-                        selected={item.label === category}
-                        label={item.label}
-                        icon={item.icon}
-                        onClick={(category) => setCategory(category)}
-                    />
-                ))}
-            </div>
-        </>)
-    }
+    //         <div className='grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto'>
+    //             {categories.map((item) => (
+    //                 <CategoryInput
+    //                     key={item.label}
+    //                     selected={item.label === category}
+    //                     label={item.label}
+    //                     icon={item.icon}
+    //                     onClick={(category) => setCategory(category)}
+    //                 />
+    //             ))}
+    //         </div>
+    //     </>)
+    // }
     // if (step === STEPS.Date) {
     //     bodyContent = (
     //         <div className='flex flex-col'>
