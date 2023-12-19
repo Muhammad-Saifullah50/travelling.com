@@ -45,7 +45,7 @@ const SearchModal = () => {
         setStep((value) => value + 1);
     }, [setStep]);
 
-    const onSubmit = async () => {
+    const onSubmit =  () => {
         if (step !== STEPS.Info) return onNext();
 
         router.push(`/?startDate=${formattedStartDate}&endDate=${formattedEndDate}&location=${location?.value}&guestCount=${guestCount}&roomCount=${roomCount}&bathroomCount=${bathroomCount}&category=${category}`);
@@ -162,7 +162,7 @@ const SearchModal = () => {
             actionLabel={actionLabel()}
             secondaryActionLabel={secondaryActionLabel()}
             secondaryAction={step === STEPS.Location ? undefined : onBack}
-            onSubmit={onSubmit}
+            onSubmit={() => onSubmit()}
             body={bodyContent}
         />
     )
