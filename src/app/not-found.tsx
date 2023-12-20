@@ -1,5 +1,6 @@
 import EmptyState from '@/components/EmptyState'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import React from 'react'
 
 const NotFound = () => {
@@ -9,7 +10,7 @@ const NotFound = () => {
                 title='Oh no! '
                 subtitle='The page you requested could not be found'
             />
-            <Button variant={"outline"} size={"lg"}>Back to homepage</Button>
+            <Link href={'/'}><Button variant={"outline"} size={"lg"}>Back to homepage</Button></Link>
         </div>
 
     )
