@@ -3,13 +3,14 @@
 import useCountries from "@/hooks/useCountries"
 import { Listing, Reservation, User } from "@prisma/client"
 import { usePathname, useRouter } from "next/navigation"
-import { useCallback, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { format } from 'date-fns'
 import Image from "next/image"
 import HeartButton from "./HeartButton"
 import { Button } from "./ui/button"
 import toast from "react-hot-toast"
 import clsx from "clsx"
+import { TailSpin } from "react-loader-spinner"
 
 interface ListingCardProps {
   currentUser?: User
@@ -140,9 +141,20 @@ const ListingCard = ({ data, currentUser, reservation, onAction, disabled, actio
             size={"sm"}
             disabled={loading}
             onClick={() => handleDelete(pathname === '/properties' ? data.id : reservation!.id)}
-            className={clsx('', pathname === '/properties' && 'bg-red-500 hover:bg-red-600/70')}
+            className={clsx('flex gap-2', pathname === '/properties' && 'bg-red-500 hover:bg-red-600/70')}
           >
-            {actionLabel}
+            {actionLabel} {loading && (
+              <TailSpin
+                height="20"
+                width="20"
+                color="#0369a1"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            )}
           </Button>
         )}
 
@@ -151,8 +163,20 @@ const ListingCard = ({ data, currentUser, reservation, onAction, disabled, actio
             size={"sm"}
             disabled={loading}
             onClick={() => secondaryAction()}
+            className="flex gap-2"
           >
-            {secondaryActionLabel}
+            {secondaryActionLabel} {loading && (
+              <TailSpin
+                height="20"
+                width="20"
+                color="#0369a1"
+                ariaLabel="tail-spin-loading"
+                radius="1"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            )}
           </Button>
         )}
       </div>
