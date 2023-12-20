@@ -1,6 +1,7 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 export const POST = async (request: Request) => {
 
@@ -10,6 +11,7 @@ export const POST = async (request: Request) => {
         const currentUser = await getCurrentUser();
 
         if (!currentUser) {
+            redirect('/login')
             return NextResponse.json({ error: 'Unauthorized', status: 401 });
         }
 

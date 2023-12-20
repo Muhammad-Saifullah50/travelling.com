@@ -6,7 +6,7 @@ export const middleware = async (request: NextRequest) => {
     
     let token = request.cookies.get('next-auth.session-token') || request.cookies.get('__Secure-next-auth.session-token')
 
-    const publicPath = pathname === '/' || pathname === '/login' || pathname === '/register' || pathname === '/search' 
+    const publicPath = pathname === '/' || pathname === '/login' || pathname === '/register' || pathname === '/search' || pathname.includes('/listings')
 
     if (!publicPath && !token) {
         const response = NextResponse.redirect(new URL('/login', request.nextUrl))
