@@ -2,7 +2,7 @@
 
 import { Listing, Reservation, User } from "@prisma/client"
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import toast from "react-hot-toast"
 import { Range } from "react-date-range"
@@ -24,9 +24,6 @@ const ListingReservation = ({ reservations = [], currentUser, listing, initialDa
     const [totalPrice, setTotalPrice] = useState(listing.price)
     const [loading, setLoading] = useState(false);
 
-    if (!currentUser) router.push('/login')
-
-
 
     const disabledDates = useMemo(() => {
         let dates: Date[] = [];
@@ -46,6 +43,11 @@ const ListingReservation = ({ reservations = [], currentUser, listing, initialDa
 
     const onCreateReservation = useCallback(async () => {
         try {
+
+            if (!currentUser) {
+                redirect('/login')
+                return
+            }
             setLoading(true)
 
             const result = await fetch('/api/reservations', {

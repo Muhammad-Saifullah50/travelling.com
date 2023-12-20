@@ -11,7 +11,6 @@ export const POST = async (request: Request) => {
         const currentUser = await getCurrentUser();
 
         if (!currentUser) {
-            redirect('/login')
             return NextResponse.json({ error: 'Unauthorized', status: 401 });
         }
 
