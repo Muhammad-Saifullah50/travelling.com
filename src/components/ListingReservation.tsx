@@ -8,6 +8,7 @@ import toast from "react-hot-toast"
 import { Range } from "react-date-range"
 import Calendar from "./Calendar"
 import { Button } from "./ui/button"
+import { TailSpin } from "react-loader-spinner"
 
 interface ListingReservationProps {
     reservations?: Reservation[]
@@ -119,7 +120,18 @@ const ListingReservation = ({ reservations = [], currentUser, listing, initialDa
                     disabled={loading}
                     onClick={() => onCreateReservation()}
                     className="w-full"
-                >Reserve</Button>
+                >{loading ? (
+                    <TailSpin
+                        height="20"
+                        width="20"
+                        color="#FFFFFF"
+                        ariaLabel="tail-spin-loading"
+                        radius="1"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                ) : 'Reserve'}</Button>
             </div>
             <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
                 <div>Total</div><div>$ {totalPrice}</div>
