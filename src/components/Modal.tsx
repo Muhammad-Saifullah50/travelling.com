@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Button } from './ui/button';
 import { LogInIcon, X } from 'lucide-react';
 import { CiLogin } from 'react-icons/ci';
+import { TailSpin } from 'react-loader-spinner';
 
 interface ModalProps {
     isOpen?: boolean;
@@ -22,11 +23,20 @@ interface ModalProps {
 const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, disabled, secondaryAction, secondaryActionLabel }: ModalProps) => {
     const [showModal, setShowModal] = useState(isOpen);
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
 
     const handleSubmit = useCallback(() => {
         if (disabled) return;
-        onSubmit()
+        try {
+            setLoading(true);
+            onSubmit()
+
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setLoading(false);
+        }
 
     }, [disabled, onSubmit]);
 
@@ -34,14 +44,14 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
         if (disabled || !secondaryAction) return;
 
         secondaryAction();
-        
+
     }, [disabled, secondaryAction]);
 
     const handleClose = useCallback(() => {
         if (disabled) return
 
         setShowModal(false);
-        
+
     }, [disabled, onClose])
 
     if (!isOpen) return null
@@ -79,7 +89,18 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
                                     <Button
                                         onClick={handleSecondaryAction}
                                         className='w-full bg-white text-black hover:bg-sky-600/10 border-2 border-black'>
-                                        {secondaryActionLabel}
+                                        {loading ? (
+                                            <TailSpin
+                                                height="20"
+                                                width="20"
+                                                color="#FFFFFF"
+                                                ariaLabel="tail-spin-loading"
+                                                radius="1"
+                                                wrapperStyle={{}}
+                                                wrapperClass=""
+                                                visible={true}
+                                            />
+                                        ) : secondaryActionLabel}
                                     </Button>
                                 )}
                                 <Button
@@ -87,7 +108,18 @@ const Modal = ({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, di
                                     disabled={disabled}
                                     onClick={handleSubmit}
                                 >
-                                    {actionLabel}
+                                    {loading ? (
+                                        <TailSpin
+                                            height="20"
+                                            width="20"
+                                            color="#FFFFFF"
+                                            ariaLabel="tail-spin-loading"
+                                            radius="1"
+                                            wrapperStyle={{}}
+                                            wrapperClass=""
+                                            visible={true}
+                                        />
+                                    ) : actionLabel}
                                 </Button>
 
                             </div>

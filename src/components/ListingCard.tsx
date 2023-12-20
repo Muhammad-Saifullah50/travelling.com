@@ -143,18 +143,18 @@ const ListingCard = ({ data, currentUser, reservation, onAction, disabled, actio
             onClick={() => handleDelete(pathname === '/properties' ? data.id : reservation!.id)}
             className={clsx('flex gap-2', pathname === '/properties' && 'bg-red-500 hover:bg-red-600/70')}
           >
-            {actionLabel} {loading && (
-              <TailSpin
-                height="20"
-                width="20"
-                color="#0369a1"
-                ariaLabel="tail-spin-loading"
-                radius="1"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-              />
-            )}
+           {loading ? (
+                    <TailSpin
+                        height="20"
+                        width="20"
+                        color="#FFFFFF"
+                        ariaLabel="tail-spin-loading"
+                        radius="1"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                ) : actionLabel}
           </Button>
         )}
 
@@ -165,18 +165,18 @@ const ListingCard = ({ data, currentUser, reservation, onAction, disabled, actio
             onClick={() => secondaryAction()}
             className="flex gap-2"
           >
-            {secondaryActionLabel} {loading && (
-              <TailSpin
-                height="20"
-                width="20"
-                color="#0369a1"
-                ariaLabel="tail-spin-loading"
-                radius="1"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-              />
-            )}
+            {loading ? (
+                    <TailSpin
+                        height="20"
+                        width="20"
+                        color="#FFFFFF"
+                        ariaLabel="tail-spin-loading"
+                        radius="1"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                ) : secondaryActionLabel}
           </Button>
         )}
       </div>
