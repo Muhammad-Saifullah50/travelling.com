@@ -45,7 +45,7 @@ const ListingReservation = ({ reservations = [], currentUser, listing, initialDa
         try {
 
             if (!currentUser) {
-                redirect('/login')
+                router.push('/login')
                 return
             }
             setLoading(true)
